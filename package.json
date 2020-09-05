@@ -1,0 +1,21 @@
+{
+  "name": "dockerhub",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/flubyGit/first-dockerfile.git",
+  "author": "Felipe <profissionalf.andre@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "nodemon --ignore node_modules",
+    "dev": "nodemon --ignore node_modules"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "sucrase": "^3.15.0"
+  }
+}
