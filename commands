@@ -1,0 +1,87 @@
+
+docker pull PACOTE - Baixa container do pacote
+docker run --name mongodb -p 27017:27017 -d mongo - Cria container do mongodb
+docker run --name mongodb -P 27017:27017 -d mongo - Cria container da imagem com porta random
+docker run -it -v "PASTAPC:PASTACONTAINER" mongo -  Cria container da imagem com volume e interative mode
+
+sudo docker run -p 8080:3000 -d -v "~/Courses/Docker/volume-exemplo:/var/www" -w "/var/www" n
+ode npm start - Cria container fazendo um link executando npm start numa imagem do docker com a porta 3000
+
+sudo docker run -p 8080:3000 -d -v "$(pwd):/var/www" -w "/var/www" n
+ode npm start - Cria container fazendo um link executando npm start numa imagem do docker com a porta 3000
+
+
+
+docker ps - Listar meus containers ativos
+dokcer ps -a - Lista todos os containers
+docker ps -q - Lista todos os ids dos containers
+docker images -a - Lista todos as imagens
+docker image rmi ID_IMAGE - Remove uma imagem do Docker
+docker start -a -i ID_IMAGE - Starta o container e entra no modo interativo
+docker container prume - Remove todos os meus containers inativos
+docker port PORT - ver em qual porta interna esta atrelada a porta externa
+docker inspect ID_CONTAINER - Retorna informações sobre o container
+
+
+
+Flags 
+
+-d - Não executar em bg
+-a - All
+-i - Interative
+-p - Porta
+-P - Porta randomica gerada pelo Docker
+--name: Alias para sua imagem
+-w - Workspace que você definir para startar sua imagem
+-v - Link simbolico entre você e o docker
+$(pwd) - Só funciona se eu tiver literalmente na pasta pwd
+
+
+
+
+Dockerfile
+
+sudo docker run -p 8080:3000 -d -v "$(pwd):/var/www" -w "/var/www" n
+ode npm start
+
+FROM - De onde você vai construir a imagem = "$(pwd)"
+LABEL - O nome de quem tá construindo a imagem
+COPY - Copiar arquivos para o container = -v
+RUN - Rode algum comando - npm install
+EXPOSE - Exponha a porta pro browser -p :8080:3000
+ENTRYPOINT- Comando que ele vai utilizar para startar o server - npm start
+WORKDIR- Aonde ele vai começar a executar - /var/www
+
+
+Build da imagem Dockerfile
+docker build -f Dockerfile -t felipe/node .
+
+-f - Arquivo que está as configurações da imagem = Default: Dockerfile
+-t - node da minha imagem
+
+
+// Criando container da nossa imagme
+sudo docker run -d -p 8080:3000 felipe/node
+
+
+
+// Subindo ao docker
+docker login
+docker tag NAME_IMAGE NAME_USER_DOCKER_HUB/NAME_IMAGE
+docker push NAME_USER_DOCKER_HUB/NAME_IMAGE
+
+
+
+// Criando tudo do docker-compose.yml/yaml
+
+docker-compose build - Lê os arquivo docker-compose.yml e builda as imagens
+docker images
+docker-compose up -d - Cria tudo do docker.compose.yml, img, container, network, port etc..
+
+
+// Outros comandos com docker-compose
+docker-compose ps - Lista todos os containers criado com o docker-compose
+docker-compose down - Para e remove todos os containers criado com o docker-compose
+docker-compose restart - Restarta os containers
+docker exec -it NAME1 ping NAME2 - Executa num container um ping para o outro container [ PRECISA ESTAR NA MESMA REDE ]
+docker exec -it NAME1 ping SERVICE - Executa num container um ping para um serviço [ PRECISA ESTAR NA MESMA REDE ]

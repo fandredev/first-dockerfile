@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      dockerfile: .
+      context: .
+    image: felipe/nginx
+    container_name: Nginx Server
+    ports:
+      - "80:80"
+    networks: 
+      - production_network
+
+  mongodb:
+    image: mongo
+    networks:
+      - production_network
+  
+  node1:
+    build:
+      dockerfile: .
+      context: .
+    image: felipe/node1
+    container_name: node-1
+    ports:
+      - "3000"
+    networks: 
+      - production_network
+    depends_on: 
+      - "mongodb"
+
+networks:
+  production_network:
+    driver: bridge
